@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Laporan Harian TD</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="no-print mb-6">
+        <div class="button-container">
+            <h1>📋 LAPORAN HARIAN TECHNICAL DIRECTOR</h1>
+            <div class="button-group">
+                <button id="printBtn" class="btn btn-print">🖨️ Print</button>
+                <button id="saveBtn" class="btn btn-save">💾 Simpan</button>
+                <button id="resetBtn" class="btn btn-reset">🔄 Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <form id="tdForm">
+            <!-- HEADER -->
+            <div class="header">
+                <h2>FORM LAPORAN HARIAN</h2>
+                <p>TECHNICAL DIRECTOR PRODUKSI & PENYIARAN</p>
+            </div>
+
+            <!-- A. IDENTITAS LAPORAN -->
+            <div class="section">
+                <h3>A. IDENTITAS LAPORAN</h3>
+                <table class="form-table">
+                    <tr>
+                        <td class="label">Hari / Tanggal</td>
+                        <td><input type="text" name="tanggal" placeholder="Contoh: Selasa, 16 Desember 2025"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Waktu Produksi / Siaran</td>
+                        <td><input type="text" name="waktuProduksi" placeholder="Contoh: 08:00 - 17:00"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Nama Program / Kegiatan</td>
+                        <td><input type="text" name="namaProgram" placeholder="Masukkan nama program"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Lokasi Produksi / Studio</td>
+                        <td><input type="text" name="lokasi" placeholder="Masukkan lokasi"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Technical Director</td>
+                        <td><input type="text" name="technicalDirector" placeholder="Nama Technical Director"></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Shift</td>
+                        <td>
+                            <select name="shift">
+                                <option value="pagi">Pagi</option>
+                                <option value="siang">Siang</option>
+                                <option value="malam">Malam</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- B. RINGKASAN KEGIATAN -->
+            <div class="section">
+                <h3>B. RINGKASAN KEGIATAN</h3>
+                <p class="desc">Uraikan secara singkat kegiatan produksi dan/atau penyiaran yang dilaksanakan pada hari ini:</p>
+                <textarea name="ringkasan" rows="4" placeholder="Masukkan ringkasan kegiatan..."></textarea>
+            </div>
+
+            <!-- C. PERALATAN & SISTEM -->
+            <div class="section">
+                <h3>C. PERALATAN & SISTEM YANG DIGUNAKAN</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Peralatan / Sistem</th>
+                            <th>Kondisi</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="peralatanTable">
+                        <tr>
+                            <td>1</td>
+                            <td>Kamera</td>
+                            <td><select name="peralatan_1_kondisi"><option>Baik</option><option>Gangguan</option></select></td>
+                            <td><input type="text" name="peralatan_1_ket" placeholder="Keterangan"></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Audio Mixer</td>
+                            <td><select name="peralatan_2_kondisi"><option>Baik</option><option>Gangguan</option></select></td>
+                            <td><input type="text" name="peralatan_2_ket" placeholder="Keterangan"></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Video Switcher</td>
+                            <td><select name="peralatan_3_kondisi"><option>Baik</option><option>Gangguan</option></select></td>
+                            <td><input type="text" name="peralatan_3_ket" placeholder="Keterangan"></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Server Playback</td>
+                            <td><select name="peralatan_4_kondisi"><option>Baik</option><option>Gangguan</option></select></td>
+                            <td><input type="text" name="peralatan_4_ket" placeholder="Keterangan"></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Lighting</td>
+                            <td><select name="peralatan_5_kondisi"><option>Baik</option><option>Gangguan</option></select></td>
+                            <td><input type="text" name="peralatan_5_ket" placeholder="Keterangan"></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Jaringan / IT</td>
+                            <td><select name="peralatan_6_kondisi"><option>Baik</option><option>Gangguan</option></select></td>
+                            <td><input type="text" name="peralatan_6_ket" placeholder="Keterangan"></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>AC & Kelistrikan Studio</td>
+                            <td><select name="peralatan_7_kondisi"><option>Baik</option><option>Gangguan</option></select></td>
+                            <td><input type="text" name="peralatan_7_ket" placeholder="Keterangan"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- D. KONDISI SIARAN/PRODUKSI -->
+            <div class="section">
+                <h3>D. KONDISI SIARAN / PRODUKSI</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Aspek</th>
+                            <th>Status</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Kualitas Video</td>
+                            <td><select name="video_quality"><option>Normal</option><option>Terganggu</option></select></td>
+                            <td><input type="text" name="video_ket" placeholder="Keterangan"></td>
+                        </tr>
+                        <tr>
+                            <td>Kualitas Audio</td>
+                            <td><select name="audio_quality"><option>Normal</option><option>Terganggu</option></select></td>
+                            <td><input type="text" name="audio_ket" placeholder="Keterangan"></td>
+                        </tr>
+                        <tr>
+                            <td>Sinkron Audio-Video</td>
+                            <td><select name="sinkron"><option>Normal</option><option>Terganggu</option></select></td>
+                            <td><input type="text" name="sinkron_ket" placeholder="Keterangan"></td>
+                        </tr>
+                        <tr>
+                            <td>Stabilitas Sistem</td>
+                            <td><select name="stabilitas"><option>Stabil</option><option>Tidak Stabil</option></select></td>
+                            <td><input type="text" name="stabilitas_ket" placeholder="Keterangan"></td>
+                        </tr>
+                        <tr>
+                            <td>Gangguan Siaran</td>
+                            <td><select name="gangguan_siaran"><option>Tidak Ada</option><option>Ada</option></select></td>
+                            <td><input type="text" name="gangguan_ket" placeholder="Keterangan"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- E. GANGGUAN/KENDALA TEKNIS -->
+            <div class="section">
+                <h3>E. GANGGUAN / KENDALA TEKNIS</h3>
+                <p class="desc">Jelaskan apabila terdapat gangguan teknis selama produksi/penyiaran:</p>
+                <div class="table-wrapper">
+                    <table class="data-table" id="gangguanTable">
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <th>Peralatan / Sistem</th>
+                                <th>Jenis Gangguan</th>
+                                <th>Tindakan Perbaikan</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="time" name="gangguan_waktu_1"></td>
+                                <td><input type="text" name="gangguan_peralatan_1" placeholder="Peralatan"></td>
+                                <td><input type="text" name="gangguan_jenis_1" placeholder="Jenis gangguan"></td>
+                                <td><input type="text" name="gangguan_tindakan_1" placeholder="Tindakan"></td>
+                                <td><select name="gangguan_status_1"><option>Selesai</option><option>Lanjutan</option></select></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button type="button" id="addGangguanBtn" class="btn btn-small btn-add">+ Tambah Gangguan</button>
+            </div>
+
+            <!-- F. TINDAKAN & KOORDINASI -->
+            <div class="section">
+                <h3>F. TINDAKAN & KOORDINASI</h3>
+                <p class="desc">Uraikan tindakan teknis, koordinasi dengan tim produksi, engineering, IT, atau pihak terkait:</p>
+                <textarea name="tindakan" rows="4" placeholder="Masukkan tindakan dan koordinasi..."></textarea>
+            </div>
+
+            <!-- G. CATATAN KHUSUS / REKOMENDASI -->
+            <div class="section">
+                <h3>G. CATATAN KHUSUS / REKOMENDASI</h3>
+                <p class="desc">(Preventive maintenance, peningkatan kualitas siaran, penggantian alat, dll)</p>
+                <textarea name="catatan" rows="4" placeholder="Masukkan catatan khusus / rekomendasi..."></textarea>
+            </div>
+
+            <!-- H. PENUTUP -->
+            <div class="section">
+                <h3>H. PENUTUP</h3>
+                <p>Laporan ini dibuat sebagai dokumentasi kegiatan teknis produksi dan penyiaran harian.</p>
+                <div class="signature-box">
+                    <div class="signature">
+                        <h4>Dibuat oleh</h4>
+                        <div class="signature-line"></div>
+                        <p>Technical Director</p>
+                        <input type="text" name="dibuat" placeholder="Nama" class="signature-name">
+                    </div>
+                    <div class="signature">
+                        <h4>Diperiksa oleh</h4>
+                        <div class="signature-line"></div>
+                        <p>KPP Teknik</p>
+                        <input type="text" name="diperiksa" placeholder="Nama" class="signature-name">
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATATAN -->
+            <div class="catatan">
+                <p><strong>Catatan:</strong> Form ini digunakan sebagai laporan rutin harian Technical Director Produksi dan Penyiaran.</p>
+            </div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
