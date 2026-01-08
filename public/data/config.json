@@ -1,0 +1,50 @@
+{
+  "programs": [
+    {
+      "id": 1,
+      "name": "Kepri Hari Ini"
+    },
+    {
+      "id": 2,
+      "name": "Ngaji Bareng"
+    },
+    {
+      "id": 3,
+      "name": "Mimbar Agama"
+    },
+    {
+      "id": 4,
+      "name": "Rumah Musik"
+    },
+    {
+      "id": 5,
+      "name": "Arena Anak"
+    },
+    {
+      "id": 6,
+      "name": "Halo Pemirsa Kepri"
+    },
+    {
+      "id": 7,
+      "name": "Kepri Menyapa"
+    }
+  ],
+  "productionTypes": [
+    {
+        "id": 1,
+        "name": "LIVE",
+        "description": "Produksi siaran langsung dari studio atau lapangan"
+    },
+    {
+        "id": 2,
+        "name": "Tapping",
+        "description": "Produksi siaran yang direkam terlebih dahulu untuk ditayangkan kemudian"
+    } 
+  ],
+  "shifts": [
+    "00:00 - 08:00",
+    "08:00 - 16:00",
+    "09:00 - 17:00",
+    "10:00 - 18:00"
+  ]
+}

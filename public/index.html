@@ -4,10 +4,429 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Laporan Harian TD</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+
+        .no-print {
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .button-container h1 {
+            font-size: 22px;
+            color: #333;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .btn-print {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-print:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-save {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-reset {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #4b5563;
+            transform: translateY(-2px);
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+
+        .btn-add {
+            background: #10b981;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .btn-add:hover {
+            background: #059669;
+        }
+
+        .btn-delete {
+            background: #ef4444;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .btn-delete:hover {
+            background: #dc2626;
+        }
+
+        .btn-delete:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h2 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h3 {
+            font-size: 14px;
+            font-weight: 700;
+            background: #f3f4f6;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .desc {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .form-table tr {
+            border: 1px solid #ddd;
+        }
+
+        .form-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .form-table .label {
+            font-weight: 600;
+            width: 30%;
+            background: #f9fafb;
+        }
+
+        .form-table input,
+        .form-table select,
+        .form-table textarea {
+            width: 100%;
+            border: none;
+            padding: 8px;
+            font-size: 13px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .form-table input:focus,
+        .form-table select:focus,
+        .form-table textarea:focus {
+            outline: 2px solid #2563eb;
+            outline-offset: -2px;
+        }
+
+        .form-table input[type="date"],
+        .form-table input[type="time"] {
+            padding: 8px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .time-range-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .time-range-container input {
+            flex: 1;
+        }
+
+        .time-separator {
+            font-weight: bold;
+            color: #666;
+            padding: 0 5px;
+        }
+
+        .date-display,
+        .time-display {
+            margin-top: 8px;
+            padding: 8px;
+            background: #f0f9ff;
+            border-left: 3px solid #2563eb;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #1e40af;
+            display: none;
+        }
+
+        .date-display.show,
+        .time-display.show {
+            display: block;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .data-table thead {
+            background: #f3f4f6;
+            font-weight: 600;
+        }
+
+        .data-table th,
+        .data-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .data-table input,
+        .data-table select {
+            width: 100%;
+            border: none;
+            padding: 6px;
+            font-size: 12px;
+            font-family: inherit;
+        }
+
+        .data-table input:focus,
+        .data-table select:focus {
+            outline: 1px solid #2563eb;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 10px;
+        }
+
+        .action-cell {
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .no-number {
+            text-align: center;
+            width: 40px;
+        }
+
+        textarea {
+            width: 100%;
+            border: 1px solid #ddd;
+            padding: 12px;
+            font-family: inherit;
+            font-size: 13px;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: 2px solid #2563eb;
+            border-color: #2563eb;
+        }
+
+        .signature-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .signature {
+            text-align: center;
+        }
+
+        .signature h4 {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .signature-line {
+            border-top: 1px solid #000;
+            height: 60px;
+            margin: 10px 0;
+        }
+
+        .signature p {
+            font-size: 11px;
+            margin-bottom: 10px;
+        }
+
+        .signature-name {
+            border: none;
+            border-bottom: 1px solid #ddd;
+            padding: 5px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .catatan {
+            border-top: 2px solid #ddd;
+            margin-top: 30px;
+            padding-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .container {
+                padding: 0;
+                box-shadow: none;
+                max-width: 100%;
+            }
+
+            .btn {
+                display: none !important;
+            }
+
+            .action-cell {
+                display: none !important;
+            }
+
+            input,
+            select,
+            textarea {
+                border: 1px solid #000 !important;
+            }
+
+            .signature-line {
+                border-top: 1px solid #000 !important;
+            }
+
+            .date-display,
+            .time-display {
+                background: white !important;
+                border-left: none !important;
+                color: #000 !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .button-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .button-group {
+                flex-wrap: wrap;
+            }
+
+            .signature-box {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .form-table .label {
+                display: block;
+                width: 100%;
+            }
+
+            .time-range-container {
+                flex-direction: column;
+            }
+
+            .time-separator {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="no-print mb-6">
+    <div class="no-print">
         <div class="button-container">
             <h1>📋 LAPORAN HARIAN TECHNICAL DIRECTOR</h1>
             <div class="button-group">
@@ -32,15 +451,37 @@
                 <table class="form-table">
                     <tr>
                         <td class="label">Hari / Tanggal</td>
-                        <td><input type="text" name="tanggal" placeholder="Contoh: Selasa, 16 Desember 2025"></td>
+                        <td>
+                            <input type="date" id="tanggalInput" name="tanggal">
+                            <div id="tanggalDisplay" class="date-display"></div>
+                        </td>
                     </tr>
                     <tr>
                         <td class="label">Waktu Produksi / Siaran</td>
-                        <td><input type="text" name="waktuProduksi" placeholder="Contoh: 08:00 - 17:00"></td>
+                        <td>
+                            <div class="time-range-container">
+                                <input type="time" id="waktuMulai" name="waktuMulai">
+                                <span class="time-separator">-</span>
+                                <input type="time" id="waktuSelesai" name="waktuSelesai">
+                            </div>
+                            <div id="waktuDisplay" class="time-display"></div>
+                        </td>
                     </tr>
                     <tr>
                         <td class="label">Nama Program / Kegiatan</td>
-                        <td><input type="text" name="namaProgram" placeholder="Masukkan nama program"></td>
+                        <td>
+                            <select id="namaProgram" name="namaProgram">
+                                <option value="">-- Loading... --</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">Jenis Produksi / Kegiatan</td>
+                        <td>
+                            <select id="jenisProduski" name="jenisProduski">
+                                <option value="">-- Loading... --</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td class="label">Lokasi Produksi / Studio</td>
@@ -53,10 +494,8 @@
                     <tr>
                         <td class="label">Shift</td>
                         <td>
-                            <select name="shift">
-                                <option value="pagi">Pagi</option>
-                                <option value="siang">Siang</option>
-                                <option value="malam">Malam</option>
+                            <select id="shift" name="shift">
+                                <option value="">-- Loading... --</option>
                             </select>
                         </td>
                     </tr>
@@ -73,60 +512,31 @@
             <!-- C. PERALATAN & SISTEM -->
             <div class="section">
                 <h3>C. PERALATAN & SISTEM YANG DIGUNAKAN</h3>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Peralatan / Sistem</th>
-                            <th>Kondisi</th>
-                            <th>Keterangan</th>
-                        </tr>
-                    </thead>
-                    <tbody id="peralatanTable">
-                        <tr>
-                            <td>1</td>
-                            <td>Kamera</td>
-                            <td><select name="peralatan_1_kondisi"><option>Baik</option><option>Gangguan</option></select></td>
-                            <td><input type="text" name="peralatan_1_ket" placeholder="Keterangan"></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Audio Mixer</td>
-                            <td><select name="peralatan_2_kondisi"><option>Baik</option><option>Gangguan</option></select></td>
-                            <td><input type="text" name="peralatan_2_ket" placeholder="Keterangan"></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Video Switcher</td>
-                            <td><select name="peralatan_3_kondisi"><option>Baik</option><option>Gangguan</option></select></td>
-                            <td><input type="text" name="peralatan_3_ket" placeholder="Keterangan"></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Server Playback</td>
-                            <td><select name="peralatan_4_kondisi"><option>Baik</option><option>Gangguan</option></select></td>
-                            <td><input type="text" name="peralatan_4_ket" placeholder="Keterangan"></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Lighting</td>
-                            <td><select name="peralatan_5_kondisi"><option>Baik</option><option>Gangguan</option></select></td>
-                            <td><input type="text" name="peralatan_5_ket" placeholder="Keterangan"></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Jaringan / IT</td>
-                            <td><select name="peralatan_6_kondisi"><option>Baik</option><option>Gangguan</option></select></td>
-                            <td><input type="text" name="peralatan_6_ket" placeholder="Keterangan"></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>AC & Kelistrikan Studio</td>
-                            <td><select name="peralatan_7_kondisi"><option>Baik</option><option>Gangguan</option></select></td>
-                            <td><input type="text" name="peralatan_7_ket" placeholder="Keterangan"></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table class="data-table" id="peralatanTable">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Peralatan / Sistem</th>
+                                <th>Kondisi</th>
+                                <th>Keterangan</th>
+                                <th class="no-print">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-row-id="1">
+                                <td class="no-number">1</td>
+                                <td><input type="text" name="peralatan_nama_1" placeholder="Masukkan nama peralatan"></td>
+                                <td><select name="peralatan_kondisi_1"><option>Baik</option><option>Gangguan</option></select></td>
+                                <td><input type="text" name="peralatan_ket_1" placeholder="Keterangan"></td>
+                                <td class="action-cell no-print">
+                                    <button type="button" class="btn-delete btn-delete-peralatan" data-row-id="1" disabled>Hapus</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button type="button" id="addPeralatanBtn" class="btn btn-small btn-add no-print">+ Tambah Peralatan</button>
             </div>
 
             <!-- D. KONDISI SIARAN/PRODUKSI -->
@@ -183,20 +593,24 @@
                                 <th>Jenis Gangguan</th>
                                 <th>Tindakan Perbaikan</th>
                                 <th>Status</th>
+                                <th class="no-print">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr data-row-id="1">
                                 <td><input type="time" name="gangguan_waktu_1"></td>
                                 <td><input type="text" name="gangguan_peralatan_1" placeholder="Peralatan"></td>
                                 <td><input type="text" name="gangguan_jenis_1" placeholder="Jenis gangguan"></td>
                                 <td><input type="text" name="gangguan_tindakan_1" placeholder="Tindakan"></td>
                                 <td><select name="gangguan_status_1"><option>Selesai</option><option>Lanjutan</option></select></td>
+                                <td class="action-cell no-print">
+                                    <button type="button" class="btn-delete btn-delete-gangguan" data-row-id="1" disabled>Hapus</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <button type="button" id="addGangguanBtn" class="btn btn-small btn-add">+ Tambah Gangguan</button>
+                <button type="button" id="addGangguanBtn" class="btn btn-small btn-add no-print">+ Tambah Gangguan</button>
             </div>
 
             <!-- F. TINDAKAN & KOORDINASI -->
@@ -240,6 +654,320 @@
         </form>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // ====== VARIABLES ======
+        const tdForm = document.getElementById('tdForm');
+        const printBtn = document.getElementById('printBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        
+        const tanggalInput = document.getElementById('tanggalInput');
+        const tanggalDisplay = document.getElementById('tanggalDisplay');
+        const waktuMulai = document.getElementById('waktuMulai');
+        const waktuSelesai = document.getElementById('waktuSelesai');
+        const waktuDisplay = document.getElementById('waktuDisplay');
+        
+        const namaProgramSelect = document.getElementById('namaProgram');
+        const jenisProdukasiSelect = document.getElementById('jenisProduski');
+        const shiftSelect = document.getElementById('shift');
+        
+        const addPeralatanBtn = document.getElementById('addPeralatanBtn');
+        const peralatanTableBody = document.querySelector('#peralatanTable tbody');
+        const addGangguanBtn = document.getElementById('addGangguanBtn');
+        const gangguanTableBody = document.querySelector('#gangguanTable tbody');
+
+        let peralatanCount = 1;
+        let gangguanCount = 1;
+
+        // ====== LOAD CONFIG DATA ======
+        async function loadConfigData() {
+            try {
+                const response = await fetch('/data/config.json');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch config.json');
+                }
+                const config = await response.json();
+                console.log('✅ Config data loaded:', config);
+
+                // Populate Program
+                namaProgramSelect.innerHTML = '<option value="">-- Pilih Program/Kegiatan --</option>';
+                config.programs.forEach(program => {
+                    const option = document.createElement('option');
+                    option.value = program.name;
+                    option.textContent = program.name;
+                    namaProgramSelect.appendChild(option);
+                });
+
+                // Populate Jenis Produksi
+                jenisProdukasiSelect.innerHTML = '<option value="">-- Pilih Jenis Produksi --</option>';
+                config.productionTypes.forEach(type => {
+                    const option = document.createElement('option');
+                    option.value = type.name;
+                    option.textContent = type.name + (type.description ? ' (' + type.description + ')' : '');
+                    jenisProdukasiSelect.appendChild(option);
+                });
+
+                // Populate Shift
+                shiftSelect.innerHTML = '<option value="">-- Pilih Shift --</option>';
+                config.shifts.forEach(shift => {
+                    const option = document.createElement('option');
+                    option.value = shift;
+                    option.textContent = shift.charAt(0).toUpperCase() + shift.slice(1);
+                    shiftSelect.appendChild(option);
+                });
+
+            } catch (error) {
+                console.error('❌ Error loading config:', error);
+                alert('Gagal load config.json. Pastikan file ada di public/data/config.json');
+            }
+        }
+
+        // ====== DATE & TIME HANDLERS ======
+        const today = new Date().toISOString().split('T')[0];
+        tanggalInput.value = today;
+        
+        tanggalInput.addEventListener('change', () => {
+            if (tanggalInput.value) {
+                const date = new Date(tanggalInput.value);
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = date.toLocaleDateString('id-ID', options);
+                tanggalDisplay.textContent = '📅 ' + formattedDate;
+                tanggalDisplay.classList.add('show');
+            } else {
+                tanggalDisplay.classList.remove('show');
+            }
+        });
+
+        tanggalInput.dispatchEvent(new Event('change'));
+
+        function updateWaktuDisplay() {
+            if (waktuMulai.value && waktuSelesai.value) {
+                waktuDisplay.textContent = '⏱️ ' + waktuMulai.value + ' - ' + waktuSelesai.value;
+                waktuDisplay.classList.add('show');
+            } else {
+                waktuDisplay.classList.remove('show');
+            }
+        }
+
+        waktuMulai.addEventListener('change', updateWaktuDisplay);
+        waktuSelesai.addEventListener('change', updateWaktuDisplay);
+
+        // ====== PERALATAN FUNCTIONS ======
+        function addPeralatanRow() {
+            peralatanCount++;
+            const newRow = document.createElement('tr');
+            newRow.setAttribute('data-row-id', peralatanCount);
+            newRow.innerHTML = `
+                <td class="no-number">-</td>
+                <td><input type="text" name="peralatan_nama_${peralatanCount}" placeholder="Masukkan nama peralatan"></td>
+                <td><select name="peralatan_kondisi_${peralatanCount}"><option>Baik</option><option>Gangguan</option></select></td>
+                <td><input type="text" name="peralatan_ket_${peralatanCount}" placeholder="Keterangan"></td>
+                <td class="action-cell no-print">
+                    <button type="button" class="btn-delete btn-delete-peralatan" data-row-id="${peralatanCount}">Hapus</button>
+                </td>
+            `;
+
+            peralatanTableBody.appendChild(newRow);
+            updatePeralatanNumbers();
+            updateDeletePeralatanButtons();
+
+            newRow.querySelector('.btn-delete-peralatan').addEventListener('click', (e) => {
+                e.preventDefault();
+                deletePeralatanRow(peralatanCount);
+            });
+        }
+
+        function deletePeralatanRow(rowId) {
+            const row = peralatanTableBody.querySelector(`tr[data-row-id="${rowId}"]`);
+            if (row) {
+                row.remove();
+                updatePeralatanNumbers();
+                updateDeletePeralatanButtons();
+                console.log('✅ Baris peralatan #' + rowId + ' dihapus');
+            }
+        }
+
+        function updatePeralatanNumbers() {
+            const rows = peralatanTableBody.querySelectorAll('tr');
+            rows.forEach((row, index) => {
+                row.querySelector('.no-number').textContent = (index + 1);
+            });
+        }
+
+        function updateDeletePeralatanButtons() {
+            const rows = peralatanTableBody.querySelectorAll('tr');
+            const deleteButtons = peralatanTableBody.querySelectorAll('.btn-delete-peralatan');
+
+            if (rows.length <= 1) {
+                deleteButtons.forEach(btn => btn.disabled = true);
+            } else {
+                deleteButtons.forEach(btn => btn.disabled = false);
+            }
+        }
+
+        // ====== GANGGUAN FUNCTIONS ======
+        function addGangguanRow() {
+            gangguanCount++;
+            const newRow = document.createElement('tr');
+            newRow.setAttribute('data-row-id', gangguanCount);
+            newRow.innerHTML = `
+                <td><input type="time" name="gangguan_waktu_${gangguanCount}"></td>
+                <td><input type="text" name="gangguan_peralatan_${gangguanCount}" placeholder="Peralatan"></td>
+                <td><input type="text" name="gangguan_jenis_${gangguanCount}" placeholder="Jenis gangguan"></td>
+                <td><input type="text" name="gangguan_tindakan_${gangguanCount}" placeholder="Tindakan"></td>
+                <td><select name="gangguan_status_${gangguanCount}"><option>Selesai</option><option>Lanjutan</option></select></td>
+                <td class="action-cell no-print">
+                    <button type="button" class="btn-delete btn-delete-gangguan" data-row-id="${gangguanCount}">Hapus</button>
+                </td>
+            `;
+
+            gangguanTableBody.appendChild(newRow);
+            updateDeleteGangguanButtons();
+
+            newRow.querySelector('.btn-delete-gangguan').addEventListener('click', (e) => {
+                e.preventDefault();
+                deleteGangguanRow(gangguanCount);
+            });
+        }
+
+        function deleteGangguanRow(rowId) {
+            const row = gangguanTableBody.querySelector(`tr[data-row-id="${rowId}"]`);
+            if (row) {
+                row.remove();
+                updateDeleteGangguanButtons();
+                console.log('✅ Baris gangguan #' + rowId + ' dihapus');
+            }
+        }
+
+        function updateDeleteGangguanButtons() {
+            const rows = gangguanTableBody.querySelectorAll('tr');
+            const deleteButtons = gangguanTableBody.querySelectorAll('.btn-delete-gangguan');
+
+            if (rows.length <= 1) {
+                deleteButtons.forEach(btn => btn.disabled = true);
+            } else {
+                deleteButtons.forEach(btn => btn.disabled = false);
+            }
+        }
+
+        // ====== FORM HANDLERS ======
+        printBtn.addEventListener('click', () => window.print());
+
+        saveBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            await saveLaporan();
+        });
+
+        resetBtn.addEventListener('click', () => {
+            if (confirm('Apakah Anda yakin ingin mereset form?')) {
+                tdForm.reset();
+                tanggalDisplay.classList.remove('show');
+                waktuDisplay.classList.remove('show');
+                localStorage.removeItem('tdFormData');
+                peralatanCount = 1;
+                gangguanCount = 1;
+            }
+        });
+
+        addPeralatanBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            addPeralatanRow();
+        });
+
+        addGangguanBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            addGangguanRow();
+        });
+
+        // ====== SAVE FUNCTION ======
+        async function getFormData() {
+            const formData = new FormData(tdForm);
+            const data = {};
+
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+
+            return data;
+        }
+
+        async function saveLaporan() {
+            try {
+                const formData = await getFormData();
+
+                const response = await fetch('/api/simpan-laporan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ formData })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('✅ ' + result.message);
+                    console.log('File tersimpan:', result.filename);
+                } else {
+                    alert('❌ ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Gagal menyimpan laporan: ' + error.message);
+            }
+        }
+
+        // ====== AUTO SAVE TO LOCALSTORAGE ======
+        tdForm.addEventListener('change', () => {
+            getFormData().then(formData => {
+                localStorage.setItem('tdFormData', JSON.stringify(formData));
+                console.log('✅ Form auto-saved');
+            });
+        });
+
+        // ====== RESTORE FROM LOCALSTORAGE ======
+        window.addEventListener('load', () => {
+            const savedData = localStorage.getItem('tdFormData');
+            
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                
+                for (let [key, value] of Object.entries(data)) {
+                    const field = tdForm.querySelector(`[name="${key}"]`);
+                    if (field) {
+                        field.value = value;
+                    }
+                }
+                
+                if (data.tanggal) {
+                    tanggalInput.dispatchEvent(new Event('change'));
+                }
+                if (data.waktuMulai || data.waktuSelesai) {
+                    updateWaktuDisplay();
+                }
+                
+                console.log('✅ Data restored dari localStorage');
+            }
+
+            updateDeletePeralatanButtons();
+            updateDeleteGangguanButtons();
+        });
+
+        // ====== KEYBOARD SHORTCUTS ======
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'p') {
+                e.preventDefault();
+                window.print();
+            }
+            
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                saveLaporan();
+            }
+        });
+
+        // ====== INIT ======
+        loadConfigData();
+    </script>
 </body>
 </html>
